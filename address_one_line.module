@@ -1,0 +1,48 @@
+<?php
+
+/**
+ * @file
+ * Contains address_one_line.module.
+ */
+
+use Drupal\Core\Routing\RouteMatchInterface;
+
+/**
+ * Implements hook_help().
+ */
+function address_one_line_help($route_name, RouteMatchInterface $route_match) {
+  switch ($route_name) {
+    // Main module help for the address_one_line module.
+    case 'help.page.address_one_line':
+      $output = '';
+      $output .= '<h3>' . t('About') . '</h3>';
+      $output .= '<p>' . t('Provides a one-line formatter for address fields.') . '</p>';
+      return $output;
+
+    default:
+  }
+}
+
+/**
+ * Implements hook_theme().
+ */
+function address_one_line_theme() {
+  return [
+    'address_one_line' => [
+      'variables' => [
+        'given_name' => '',
+        'additional_name' => '',
+        'family_name' => '',
+        'organization' => '',
+        'address_line1' => '',
+        'address_line2' => '',
+        'postal_code' => '',
+        'sorting_code' => '',
+        'dependent_locality' => [],
+        'locality' => [],
+        'administrative_area' => [],
+        'country' => [],
+      ],
+    ],
+  ];
+}
