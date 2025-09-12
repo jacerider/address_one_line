@@ -1,5 +1,6 @@
 name: 'Address One Line Formatter'
 type: module
 description: 'Provides a one-line formatter for address fields.'
-core_version_requirement: ^8.8 || ^9 || ^10
+core_version_requirement: ^8.8 || ^9 || ^10 || ^11
 package: 'Field types'
+version: 0.0.0
