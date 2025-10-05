@@ -1,0 +1,9 @@
+field.formatter.settings.address_one_line:
+  type: mapping
+  label: 'Address one-line field settings'
+  mapping:
+    hidden:
+      type: sequence
+      label: 'Hidden'
+      sequence:
+        type: string
