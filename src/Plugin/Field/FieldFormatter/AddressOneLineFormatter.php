@@ -41,8 +41,19 @@ class AddressOneLineFormatter extends AddressPlainFormatter implements Container
       '#title' => $this->t('Hidden Elements'),
       '#options' => LabelHelper::getGenericFieldLabels(),
       '#default_value' => $this->getSetting('hidden'),
+      '#element_validate' => [
+        [get_class($this), 'validateHiddenElements'],
+      ],
     ];
     return $form;
+  }
+
+  /**
+   * Form element validation handler for hidden elements.
+   */
+  public static function validateHiddenElements(array &$element, FormStateInterface $form_state) {
+    $values = $form_state->getValue($element['#parents']);
+    $form_state->setValue($element['#parents'], array_filter($values));
   }
 
   /**
@@ -51,8 +62,15 @@ class AddressOneLineFormatter extends AddressPlainFormatter implements Container
   public function settingsSummary() {
     $summary = [];
     if ($this->getSetting('hidden')) {
-      // $entity_type = $this->entityTypeManager->getDefinition($this->fieldDefinition->getTargetEntityTypeId());
-      // $summary[] = $this->t('Linked to the @entity_label', ['@entity_label' => $entity_type->getLabel()]);
+      $hidden_labels = [];
+      $hidden = $this->getSetting('hidden');
+      $labels = LabelHelper::getGenericFieldLabels();
+      foreach ($hidden as $key) {
+        if (!empty($key)) {
+          $hidden_labels[] = $labels[$key] ?? $key;
+        }
+      }
+      $summary[] = $this->t('Hidden elements: @elements', ['@elements' => implode(', ', $hidden_labels)]);
     }
     return $summary;
   }
